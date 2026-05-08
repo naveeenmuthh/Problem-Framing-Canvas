@@ -1,0 +1,303 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .root { padding: 2rem 1.5rem; }
+
+  .hero { margin-bottom: 2.5rem; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 0.5rem; }
+  .hero-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.4rem; }
+  .hero-sub { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+  .tag { display: inline-block; font-size: 11px; background: var(--color-background-info); color: var(--color-text-info); padding: 3px 10px; border-radius: 999px; margin-right: 6px; margin-top: 8px; }
+
+  .section { margin-bottom: 2.5rem; }
+  .section-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; padding-bottom: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+
+  /* Insights */
+  .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .insight-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+  .insight-num { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); margin-bottom: 6px; }
+  .insight-headline { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; line-height: 1.4; }
+  .insight-stat { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .insight-stat strong { color: var(--color-text-primary); font-weight: 500; }
+  .accent-bar { height: 3px; border-radius: 2px; margin-bottom: 10px; }
+  .bar-coral { background: #D85A30; }
+  .bar-blue { background: #378ADD; }
+  .bar-amber { background: #BA7517; }
+  .bar-purple { background: #7F77DD; }
+  .bar-teal { background: #1D9E75; }
+
+  /* Problem Framing Canvas */
+  .canvas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .canvas-grid-row3 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  .canvas-cell { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .canvas-cell-full { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 1rem; }
+  .canvas-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 8px; }
+  .canvas-primary { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+  .canvas-item { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; padding: 3px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--color-border-primary); flex-shrink: 0; margin-top: 7px; }
+  .dot-red { background: #E24B4A; }
+  .dot-amber { background: #EF9F27; }
+  .dot-blue { background: #378ADD; }
+
+  /* Core Problem Statement */
+  .problem-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-left: 3px solid #D85A30; border-radius: var(--border-radius-lg); padding: 1.5rem 1.5rem 1.5rem 1.25rem; }
+  .problem-box p { font-size: 16px; font-weight: 500; color: var(--color-text-primary); line-height: 1.65; }
+  .problem-box .citation { font-size: 12px; color: var(--color-text-tertiary); margin-top: 10px; font-style: italic; }
+
+  /* Expanded Narrative */
+  .narrative-box { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; }
+  .narrative-box p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.75; margin-bottom: 1rem; }
+  .narrative-box p:last-child { margin-bottom: 0; }
+  .narrative-box strong { color: var(--color-text-primary); font-weight: 500; }
+
+  /* HMW */
+  .hmw-list { display: flex; flex-direction: column; gap: 10px; }
+  .hmw-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: border-color 0.15s; }
+  .hmw-card:hover { border-color: var(--color-border-secondary); }
+  .hmw-index { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); min-width: 24px; padding-top: 2px; }
+  .hmw-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+  .hmw-text span { color: var(--color-text-secondary); }
+  .hmw-link { font-size: 11px; color: var(--color-text-tertiary); margin-top: 4px; }
+
+  /* Bridge */
+  .bridge { margin: 2rem 0; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+  .bridge-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: center; gap: 6px; }
+  .bridge-node { text-align: center; }
+  .bridge-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: 4px; }
+  .bridge-val { font-size: 12px; color: var(--color-text-secondary); line-height: 1.4; }
+  .bridge-arrow { font-size: 16px; color: var(--color-text-tertiary); text-align: center; }
+
+  @media (max-width: 540px) {
+    .canvas-grid { grid-template-columns: 1fr; }
+    .bridge-row { grid-template-columns: 1fr; }
+    .bridge-arrow { display: none; }
+  }
+</style>
+
+<div class="root">
+  <div class="hero">
+    <div class="hero-eyebrow">Problem Definition · Milestone 1</div>
+    <div class="hero-title">Zoom for Education</div>
+    <div class="hero-sub">Synthesized from secondary research · April 2026 · K-12 & Higher Education</div>
+    <div>
+      <span class="tag">EdTech</span>
+      <span class="tag">AI in Education</span>
+      <span class="tag">K-12</span>
+      <span class="tag">UX Research</span>
+    </div>
+  </div>
+
+  <!-- Section 1: Key Insights -->
+  <div class="section">
+    <div class="section-label">01 — Key insights (top 5)</div>
+    <div class="insights-grid">
+
+      <div class="insight-card">
+        <div class="accent-bar bar-coral"></div>
+        <div class="insight-num">Insight 01</div>
+        <div class="insight-headline">Zoom is present but structurally misaligned</div>
+        <div class="insight-stat">Zoom has <strong>~90% meeting penetration</strong> in K-12 and <strong>~85%</strong> in higher ed — yet it lacks attendance tracking, gradebooks, LMS integration, and parent communication. It's a business tool coerced into a classroom.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="accent-bar bar-amber"></div>
+        <div class="insight-num">Insight 02</div>
+        <div class="insight-headline">The AI readiness gap is the #1 unmet need</div>
+        <div class="insight-stat"><strong>85% of teachers used AI in 2024–25</strong>, yet 71% lack formal training and 85% feel unprepared to manage it. The gap isn't technology — it's confidence and workflow integration.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="accent-bar bar-blue"></div>
+        <div class="insight-num">Insight 03</div>
+        <div class="insight-headline">Student AI adoption has outpaced institutions</div>
+        <div class="insight-stat"><strong>88% of students</strong> used generative AI for coursework in 2025. No major platform has an academic integrity AI layer. This is a white-space growing by the semester.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="accent-bar bar-purple"></div>
+        <div class="insight-num">Insight 04</div>
+        <div class="insight-headline">Blackboard's bankruptcy opens a migration window</div>
+        <div class="insight-stat">Anthology filed Chapter 11 in Sept 2025, emerged as Blackboard Inc. in Feb 2026. <strong>~12%</strong> of North American higher ed institutions are actively re-evaluating their stack — a narrow window Zoom must capture.</div>
+      </div>
+
+      <div class="insight-card">
+        <div class="accent-bar bar-teal"></div>
+        <div class="insight-num">Insight 05</div>
+        <div class="insight-headline">Tool fragmentation is a top institutional pain point</div>
+        <div class="insight-stat">IT admins manage <strong>16+ software tools</strong> on average. Only <strong>19% of educators</strong> are satisfied with LMS-video integration. <strong>43% of university CIOs</strong> plan to consolidate their EdTech stack within 2 years.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 2: Problem Framing Canvas -->
+  <div class="section">
+    <div class="section-label">02 — Problem framing canvas</div>
+    <div class="canvas-grid">
+
+      <div class="canvas-cell">
+        <div class="canvas-label">User</div>
+        <div class="canvas-primary">K-12 Teachers (Primary)</div>
+        <div class="canvas-item"><span class="dot dot-blue"></span><span>3.8M US public school teachers; 84M globally</span></div>
+        <div class="canvas-item"><span class="dot dot-blue"></span><span>Ages 25–55; moderate-to-high tech exposure</span></div>
+        <div class="canvas-item"><span class="dot dot-blue"></span><span>Conduct sessions 5 days/week, 180+ days/year — highest platform frequency of any segment</span></div>
+        <div class="canvas-item"><span class="dot dot-blue"></span><span>Secondary: university faculty, IT administrators, students (13–25)</span></div>
+      </div>
+
+      <div class="canvas-cell">
+        <div class="canvas-label">Needs</div>
+        <div class="canvas-item"><span class="dot"></span><span>Deliver engaging, trackable lessons without switching between 3+ tools</span></div>
+        <div class="canvas-item"><span class="dot"></span><span>Auto-track attendance and sync to gradebook</span></div>
+        <div class="canvas-item"><span class="dot"></span><span>Use AI confidently without requiring separate training</span></div>
+        <div class="canvas-item"><span class="dot"></span><span>Communicate student progress to parents</span></div>
+        <div class="canvas-item"><span class="dot"></span><span>Maintain academic integrity as student AI use hits critical mass</span></div>
+      </div>
+
+      <div class="canvas-cell">
+        <div class="canvas-label">Pain points</div>
+        <div class="canvas-item"><span class="dot dot-red"></span><span>Workflow fragmentation — LMS, video, whiteboard are separate tools every session</span></div>
+        <div class="canvas-item"><span class="dot dot-red"></span><span>AI anxiety — using AI tools but 85% feel unprepared to manage student AI use</span></div>
+        <div class="canvas-item"><span class="dot dot-red"></span><span>No per-student engagement visibility in real time (only 32% of instructors satisfied)</span></div>
+        <div class="canvas-item"><span class="dot dot-red"></span><span>No attendance automation — still tracked manually or not at all</span></div>
+        <div class="canvas-item"><span class="dot dot-amber"></span><span>No parent communication layer native to the platform</span></div>
+      </div>
+
+      <div class="canvas-cell">
+        <div class="canvas-label">Context</div>
+        <div class="canvas-item"><span class="dot dot-amber"></span><span>2026: EdTech is shifting from emergency tool to foundational infrastructure</span></div>
+        <div class="canvas-item"><span class="dot dot-amber"></span><span>Google Classroom dominates K-12 LMS (~60K schools) but Google Meet lags Zoom on video quality</span></div>
+        <div class="canvas-item"><span class="dot dot-amber"></span><span>AI in education market growing at 34–41% CAGR — the primary competitive battleground</span></div>
+        <div class="canvas-item"><span class="dot dot-amber"></span><span>Blackboard bankruptcy creates institutional re-evaluation in higher ed</span></div>
+      </div>
+
+    </div>
+    <div class="canvas-grid-row3">
+      <div class="canvas-cell-full">
+        <div class="canvas-label">Product gaps (Zoom) — rated by urgency</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-top: 8px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 500; color: #E24B4A; margin-bottom: 6px;">Critical gaps</div>
+            <div class="canvas-item"><span class="dot dot-red"></span><span>Attendance tracking (none)</span></div>
+            <div class="canvas-item"><span class="dot dot-red"></span><span>Per-student engagement analytics (none)</span></div>
+            <div class="canvas-item"><span class="dot dot-red"></span><span>Assignment & gradebook (none)</span></div>
+            <div class="canvas-item"><span class="dot dot-red"></span><span>Academic integrity AI layer (none)</span></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 500; color: #BA7517; margin-bottom: 6px;">High gaps</div>
+            <div class="canvas-item"><span class="dot dot-amber"></span><span>LMS / gradebook integration (partial)</span></div>
+            <div class="canvas-item"><span class="dot dot-amber"></span><span>Adaptive learning paths (none)</span></div>
+            <div class="canvas-item"><span class="dot dot-amber"></span><span>Parent communication (none)</span></div>
+            <div class="canvas-item"><span class="dot dot-amber"></span><span>Academic scheduling (none)</span></div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 500; color: #1D9E75; margin-bottom: 6px;">Strengths</div>
+            <div class="canvas-item"><span class="dot" style="background:#1D9E75"></span><span>Best-in-class video conferencing</span></div>
+            <div class="canvas-item"><span class="dot" style="background:#1D9E75"></span><span>AI Companion 3.0 — no extra cost</span></div>
+            <div class="canvas-item"><span class="dot" style="background:#1D9E75"></span><span>Lecture summaries & study guides</span></div>
+            <div class="canvas-item"><span class="dot" style="background:#1D9E75"></span><span>Best-in-class breakout rooms</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Core Problem Statement -->
+  <div class="section">
+    <div class="section-label">03 — Core problem statement</div>
+    <div class="problem-box">
+      <p>K-12 teachers are using Zoom as a classroom every day — but Zoom was designed for boardrooms. As AI becomes the defining differentiator in EdTech and students hit critical AI adoption mass (88%), teachers are left holding a powerful conferencing tool with no attendance tracking, no engagement visibility, no academic integrity layer, and no LMS workflow — surrounded by competitors who are rapidly closing the gap.</p>
+      <div class="citation">Grounded in: Gallup 2025 · EDUCAUSE 2023–24 · Engageli March 2026 · CDT February 2026 · Zoom EDUCAUSE Announcement Oct 2025</div>
+    </div>
+  </div>
+
+  <!-- Section 4: Expanded Problem Narrative -->
+  <div class="section">
+    <div class="section-label">04 — Expanded problem narrative</div>
+    <div class="narrative-box">
+      <p>When schools went online in 2020, Zoom became the de facto classroom — not by design, but by default. Over 1.2 billion children were affected by school closures, and institutions turned to video conferencing tools as emergency infrastructure. What was never intended to be an educational platform became one overnight.</p>
+      <p>By 2026, that emergency workaround has become institutionalised. Educators are no longer asking how to survive online — they are asking how to build a better digital classroom. And the stakes have fundamentally changed: <strong>AI is now the primary battleground</strong>. Platforms that cannot embed intelligent, real-time assistance are visibly falling behind.</p>
+      <p>Zoom occupies a paradoxical position. It has <strong>near-universal presence</strong> — ~90% meeting usage across K-12 institutions — but zero of the structural features educators require: no attendance tracking, no gradebook, no parent communication, no academic integrity tools, no per-student engagement view. Teachers are splitting their workflows across Zoom (video), Google Classroom or Canvas (LMS), and 14+ other tools per session. Only 19% of educators are satisfied with the integration between their video conferencing tool and their LMS.</p>
+      <p>Meanwhile, student AI adoption has hit critical mass — <strong>88% of students used generative AI for coursework in 2025</strong> — while 85% of teachers feel unprepared to manage it. This is not a technology gap. It's a confidence and integration gap. The platform that scaffolds AI into teachers' existing workflows without requiring them to become AI experts will win K-12 adoption at scale. Zoom's AI Companion 3.0, already embedded at no extra cost, is positioned to fill exactly this role — but only if Zoom reframes and packages it correctly for educators, and only if it closes the structural gaps that AI alone cannot replace.</p>
+      <p>The market window is narrow and tightening. Google launched an AI analytics dashboard for Classroom in June 2025. Blackboard's bankruptcy has placed ~12% of North American higher ed institutions in active re-evaluation mode. The US K-12 EdTech market is projected to grow from $18B to $55.4B by 2030. Zoom already has the users, the trust, and the AI infrastructure. <strong>The only question is whether it will build the education-specific layer before competitors lock in the institutional contracts.</strong></p>
+    </div>
+  </div>
+
+  <!-- Strategic Bridge -->
+  <div class="bridge">
+    <div style="font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: 12px;">Research → opportunity chain</div>
+    <div class="bridge-row">
+      <div class="bridge-node">
+        <div class="bridge-label">Research finding</div>
+        <div class="bridge-val">85% of teachers feel unprepared to manage AI; only 19% satisfied with LMS-video integration</div>
+      </div>
+      <div class="bridge-arrow">→</div>
+      <div class="bridge-node">
+        <div class="bridge-label">User pain</div>
+        <div class="bridge-val">Fragmented tools, AI anxiety, no engagement visibility, no attendance automation</div>
+      </div>
+      <div class="bridge-arrow">→</div>
+      <div class="bridge-node">
+        <div class="bridge-label">Product gap</div>
+        <div class="bridge-val">Zoom has video + AI but lacks attendance, LMS, analytics, integrity layer, parent comms</div>
+      </div>
+      <div class="bridge-arrow">→</div>
+      <div class="bridge-node">
+        <div class="bridge-label">Business opportunity</div>
+        <div class="bridge-val">$34M ARR at 5% K-12 share; $100–160M ARR in higher ed migration alone</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: HMW Statements -->
+  <div class="section">
+    <div class="section-label">05 — How might we statements</div>
+    <div class="hmw-list">
+
+      <div class="hmw-card" onclick="sendPrompt('Expand on HMW #1: How might we make Zoom feel like a classroom, not a meeting room, for K-12 teachers?')">
+        <div class="hmw-index">HMW 1</div>
+        <div>
+          <div class="hmw-text">How might we make Zoom feel like a <strong>classroom, not a meeting room</strong>, so that K-12 teachers can track attendance, monitor engagement, and manage their full lesson workflow — without switching to a separate LMS?</div>
+          <div class="hmw-link">↗ Connects to: Opportunity 1 (Classroom Mode) · Research: 60% teachers use Zoom, but only 19% satisfied with LMS-video integration</div>
+        </div>
+      </div>
+
+      <div class="hmw-card" onclick="sendPrompt('Expand on HMW #2: How might we scaffold AI into teachers\\'existing workflows so they feel confident, not threatened?')">
+        <div class="hmw-index">HMW 2</div>
+        <div>
+          <div class="hmw-text">How might we <strong>scaffold AI into teachers' existing workflows</strong> so they can use it confidently without formal training — turning the AI readiness gap into Zoom's primary differentiation over Google Classroom and Microsoft Teams?</div>
+          <div class="hmw-link">↗ Connects to: Opportunity #2 (AI Companion) · Research: 85% feel unprepared; AI Companion 3.0 already embedded at no extra cost</div>
+        </div>
+      </div>
+
+      <div class="hmw-card" onclick="sendPrompt('Expand on HMW #3: How might we help institutions govern student AI use rather than just prohibit it?')">
+        <div class="hmw-index">HMW 3</div>
+        <div>
+          <div class="hmw-text">How might we help institutions <strong>govern student AI use responsibly</strong> — rather than prohibit it — by building an academic integrity layer inside Zoom that gives teachers visibility into AI contribution without disrupting student creativity?</div>
+          <div class="hmw-link">↗ Connects to: Opportunity 2 (Academic Integrity Layer) · Research: 88% of students used GenAI for coursework in 2025; no major platform has addressed this</div>
+        </div>
+      </div>
+
+      <div class="hmw-card" onclick="sendPrompt('Expand on HMW #4: How might we make Zoom the default live session layer for every institution migrating away from Blackboard?')">
+        <div class="hmw-index">HMW 4</div>
+        <div>
+          <div class="hmw-text">How might we make Zoom the <strong>default live session layer for Canvas adopters</strong> — and a credible alternative for institutions exiting Blackboard — by building a native, bi-directional LTI 1.3 integration that syncs attendance, recordings, and AI summaries automatically?</div>
+          <div class="hmw-link">↗ Connects to: Opportunity 3 (Canvas Integration) & Business Opportunity #3 · Research: Blackboard ~12% North American higher ed; Canvas dominant at 41% by institution count</div>
+        </div>
+      </div>
+
+      <div class="hmw-card" onclick="sendPrompt('Expand on HMW #5: How might we turn Zoom into the K-12 communication hub for parents, teachers, and students?')">
+        <div class="hmw-index">HMW 5</div>
+        <div>
+          <div class="hmw-text">How might we use Zoom's AI and video strengths to build a <strong>richer parent communication layer</strong> — AI-generated class highlights, attendance alerts, and parent-teacher video calls — that directly challenges the one feature keeping K-12 schools loyal to Google Classroom?</div>
+          <div class="hmw-link">↗ Connects to: Opportunity 5 (Zoom for Parents) · Research: Google Classroom Guardian Summaries is K-12's primary stickiness feature; Zoom has zero parent comms</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="padding: 1rem 0; border-top: 0.5px solid var(--color-border-tertiary); font-size: 12px; color: var(--color-text-tertiary); line-height: 1.6;">
+    Research compiled from: Gallup 2025 · EDUCAUSE 2022–2024 · CDT February 2026 · Engageli March 2026 · Grand View Research 2024 · Precedence Research 2026 · On EdTech / Phil Hill &amp; Associates Year-End 2024 · Edutechnica Spring 2025 · Zoom EDUCAUSE Announcement October 2025 · NCES 2023–24 · UNESCO 2023 · CoSN 2023 · Gartner 2023
+  </div>
+</div>
